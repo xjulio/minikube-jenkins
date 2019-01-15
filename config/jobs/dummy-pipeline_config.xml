@@ -1,0 +1,26 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.31">
+	<description></description>
+	<keepDependencies>false</keepDependencies>
+	<properties />
+	<definition
+		class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition"
+		plugin="workflow-cps@2.61.1">
+		<script>
+			node {
+				stage(&apos;Preparation&apos;) { // for display purposes
+					echo &quot;Preparation&quot;
+				}
+				stage(&apos;Build&apos;) {
+					echo &quot;Build&quot;
+				}
+				stage(&apos;Test&apos;) {
+					echo &quot;Test&quot;
+				}
+			}
+		</script>
+		<sandbox>true</sandbox>
+	</definition>
+	<triggers />
+	<disabled>false</disabled>
+</flow-definition>

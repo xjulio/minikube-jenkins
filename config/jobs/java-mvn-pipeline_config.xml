@@ -1,0 +1,37 @@
+<flow-definition plugin="workflow-job@2.31">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.61.1">
+    <script>node {
+   def mvnHome
+   stage(&apos;Preparation&apos;) { // for display purposes
+      // Sample Spring Boot APP
+      git &apos;https://github.com/xjulio/spring-boot-jpa-sample.git&apos;
+      // Confogure the Maven tool.
+      // ** NOTE: This &apos;M3&apos; Maven tool must be configured
+      // **       in the global configuration.           
+      mvnHome = tool &apos;M3&apos;
+   }
+   stage(&apos;Build&apos;) {
+      // Run the maven build
+      if (isUnix()) {
+         sh &quot;&apos;${mvnHome}/bin/mvn&apos; -Dmaven.test.skip=true clean package&quot;
+      } else {
+         bat(/&quot;${mvnHome}\bin\mvn&quot; -Dmaven.test.skip=true clean package/)
+      }
+   }
+   stage(&apos;Test&apos;) {
+      if (isUnix()) {
+         sh &quot;&apos;${mvnHome}/bin/mvn&apos; test&quot;
+      } else {
+         bat(/&quot;${mvnHome}\bin\mvn&quot; test/)
+      }
+   }
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>
